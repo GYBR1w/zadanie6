@@ -53,13 +53,7 @@ class Authorization extends StatelessWidget {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text('Создать',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          )
-                      ),
-                      Text(' аккаунт',
+                      Text('Создать аккаунт',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
