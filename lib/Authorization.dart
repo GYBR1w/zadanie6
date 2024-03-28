@@ -56,16 +56,13 @@ class Authorization extends StatelessWidget {
                       Text('Создать',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
                           )
                       ),
                       Text(' аккаунт',
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 13,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 18,
                           )
                       ),
                     ],
