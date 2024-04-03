@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 class Flowers {
   final String name;
   final String image;
@@ -33,7 +35,7 @@ List<Flowers> flowersList = [
   ),
   Flowers("Букет из клубники и орхидей космос",
       'https://content2.flowwow-images.com/data/flowers/1000x1000/39/1684348069_29280239.jpg',
-      "3000 ₽/шт.",
+      "3000 ₽",
       "Невероятный букет, напоминающий космос благодаря орхидее",
       "Голубика - 50 гр. Клубника в шоколаде - 22 шт.",
       ''
@@ -295,3 +297,13 @@ List<Fimage> fimageList = [
   ]),
 
 ];
+
+double getPriceByName(String name) {
+  final Flowers? flower = flowersList.firstWhereOrNull((flower) => flower.name == name);
+  if (flower != null) {
+    final price = flower.price.replaceAll('₽', '').trim();
+    return double.tryParse(price) ?? 0.0;
+  }
+  return 0.0;
+}
+

@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
                         });
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Товар добавлен в избранное'),
-                          duration: Duration(seconds: 2),
+                          duration: Duration(seconds: 1),
                         ));
                       },
                     ),
@@ -148,7 +148,7 @@ class _HomeState extends State<Home> {
                         ));
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text('Товар добавлен в корзину'),
-                          duration: Duration(seconds: 2),
+                          duration: Duration(seconds: 1),
                         ));
                       },
                     ),

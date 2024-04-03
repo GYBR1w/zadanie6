@@ -5,8 +5,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 
 
-
-//Подробная информация о цветах
 class DescriptionFlovers extends StatefulWidget {
   final String name;
   final String price;
