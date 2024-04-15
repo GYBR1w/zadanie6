@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Order.dart';
-import 'modul/DataBase.dart';
 import 'CardPage.dart';
+import 'modul/DataBase.dart';
+import 'OrderDetailsScreen.dart';
+
 
 class HistoryOrders extends StatefulWidget {
   @override
@@ -14,18 +15,29 @@ class _HistoryOrdersState extends State<HistoryOrders> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 5; i++) {
-      List<CartItem> randomItems = [];
-      for (int j = 0; j < 3; j++) {
-        int randomIndex = DateTime.now().millisecond % flowersList.length;
-        randomItems.add(CartItem(
-          name: flowersList[randomIndex].name,
-          price: flowersList[randomIndex].price,
-          image: flowersList[randomIndex].image,
-        ));
-      }
-      addOrderToHistory(randomItems);
-    }
+
+    List<CartItem> order1 = [
+      CartItem(
+        name: flowersList[0].name,
+        price: flowersList[0].price,
+        image: flowersList[0].image,
+        quantity: 1,
+      ),
+    ];
+
+
+    List<CartItem> order2 = [
+      CartItem(
+        name: flowersList[1].name,
+        price: flowersList[1].price,
+        image: flowersList[1].image,
+        quantity: 2,
+      ),
+    ];
+
+
+    ordersHistory.add(order1);
+    ordersHistory.add(order2);
   }
 
   @override
@@ -42,16 +54,16 @@ class _HistoryOrdersState extends State<HistoryOrders> {
             title: Text('Заказ номер ${index + 1}'),
             subtitle: Text('Количество товаров: ${order.length}'),
             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderDetailsScreen(cartItems: order),
+                ),
+              );
             },
           );
         },
       ),
     );
-  }
-
-  void addOrderToHistory(List<CartItem> cartItems) {
-    setState(() {
-      ordersHistory.add(cartItems);
-    });
   }
 }
