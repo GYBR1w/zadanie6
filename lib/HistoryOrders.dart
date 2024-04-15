@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
-class Order {
-  final int orderNumber;
-  final String date;
-
-  Order({required this.orderNumber, required this.date});
-}
+import 'Order.dart';
+import 'modul/DataBase.dart';
+import 'CardPage.dart';
 
 class HistoryOrders extends StatefulWidget {
   @override
@@ -13,13 +9,26 @@ class HistoryOrders extends StatefulWidget {
 }
 
 class _HistoryOrdersState extends State<HistoryOrders> {
-  List<Order> orders = [];
+  List<List<CartItem>> ordersHistory = [];
 
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 10; i++) {
-      orders.add(Order(orderNumber: i + 1, date: '01.01.2023'));
+    // Здесь мы добавляем несколько случайных заказов для отображения в истории
+    for (int i = 0; i < 5; i++) {
+      // Генерируем случайные товары для каждого заказа
+      List<CartItem> randomItems = [];
+      for (int j = 0; j < 3; j++) {
+        int randomIndex = DateTime.now().millisecond % flowersList.length;
+        // Создаем экземпляр товара и добавляем его в список
+        randomItems.add(CartItem(
+          name: flowersList[randomIndex].name,
+          price: flowersList[randomIndex].price,
+          image: flowersList[randomIndex].image,
+        ));
+      }
+      // Добавляем сгенерированные товары в историю заказов
+      addOrderToHistory(randomItems);
     }
   }
 
@@ -30,54 +39,26 @@ class _HistoryOrdersState extends State<HistoryOrders> {
         title: Text('История заказов'),
       ),
       body: ListView.builder(
-        itemCount: orders.length,
+        itemCount: ordersHistory.length,
         itemBuilder: (context, index) {
-          final order = orders[index];
+          final order = ordersHistory[index];
           return ListTile(
-            title: Text('Заказ номер ${order.orderNumber}'),
-            subtitle: Text('Дата: ${order.date}'),
+            title: Text('Заказ номер ${index + 1}'),
+            subtitle: Text('Количество товаров: ${order.length}'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => OrderDetails(order: order),
-                ),
-              );
+              // Здесь можно добавить навигацию к экрану с подробностями заказа
+              // например, для отображения списка товаров в заказе
             },
           );
         },
       ),
     );
   }
-}
 
-class OrderDetails extends StatelessWidget {
-  final Order order;
-
-  const OrderDetails({Key? key, required this.order}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Заказ номер ${order.orderNumber}'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Детали заказа номер ${order.orderNumber}',
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Дата заказа: ${order.date}',
-              style: TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    );
+  // Метод для добавления нового заказа в историю заказов
+  void addOrderToHistory(List<CartItem> cartItems) {
+    setState(() {
+      ordersHistory.add(cartItems);
+    });
   }
 }

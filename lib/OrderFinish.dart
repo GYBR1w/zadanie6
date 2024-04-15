@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/HomeAfter.dart';
 import 'Home.dart';
 
 class OrderFinishScreen extends StatelessWidget {
@@ -27,7 +28,7 @@ class OrderFinishScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Home()),
+                  MaterialPageRoute(builder: (context) => HomeAfter()),
                 );
               },
               child: Text('Вернуться на главный экран'),
