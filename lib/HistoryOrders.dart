@@ -14,20 +14,16 @@ class _HistoryOrdersState extends State<HistoryOrders> {
   @override
   void initState() {
     super.initState();
-    // Здесь мы добавляем несколько случайных заказов для отображения в истории
     for (int i = 0; i < 5; i++) {
-      // Генерируем случайные товары для каждого заказа
       List<CartItem> randomItems = [];
       for (int j = 0; j < 3; j++) {
         int randomIndex = DateTime.now().millisecond % flowersList.length;
-        // Создаем экземпляр товара и добавляем его в список
         randomItems.add(CartItem(
           name: flowersList[randomIndex].name,
           price: flowersList[randomIndex].price,
           image: flowersList[randomIndex].image,
         ));
       }
-      // Добавляем сгенерированные товары в историю заказов
       addOrderToHistory(randomItems);
     }
   }
@@ -46,8 +42,6 @@ class _HistoryOrdersState extends State<HistoryOrders> {
             title: Text('Заказ номер ${index + 1}'),
             subtitle: Text('Количество товаров: ${order.length}'),
             onTap: () {
-              // Здесь можно добавить навигацию к экрану с подробностями заказа
-              // например, для отображения списка товаров в заказе
             },
           );
         },
@@ -55,7 +49,6 @@ class _HistoryOrdersState extends State<HistoryOrders> {
     );
   }
 
-  // Метод для добавления нового заказа в историю заказов
   void addOrderToHistory(List<CartItem> cartItems) {
     setState(() {
       ordersHistory.add(cartItems);

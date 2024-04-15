@@ -6,13 +6,13 @@ class CartItem {
   final String name;
   final String price;
   final String image;
-  int quantity; // Добавляем поле для количества товара
+  int quantity;
 
   CartItem({
     required this.name,
     required this.price,
     required this.image,
-    this.quantity = 1, // Устанавливаем значение по умолчанию
+    this.quantity = 1,
   });
 }
 
@@ -31,7 +31,7 @@ class Cart {
     double totalPrice = 0.0;
     for (var item in items) {
       double itemPrice = getPriceByName(item.name);
-      totalPrice += itemPrice * item.quantity; // Учитываем количество товара
+      totalPrice += itemPrice * item.quantity;
     }
     return totalPrice;
   }
@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                   subtitle: Row(
                     children: [
                       Text(item.price),
-                      SizedBox(width: 20), // Добавляем отступ
+                      SizedBox(width: 20),
                       Text('Количество: ${item.quantity}'),
                     ],
                   ),
@@ -83,7 +83,7 @@ class _CartScreenState extends State<CartScreen> {
                         onPressed: () {
                           setState(() {
                             if (item.quantity > 1) {
-                              item.quantity--; // Уменьшаем количество
+                              item.quantity--;
                             }
                           });
                         },
@@ -92,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
                         icon: Icon(Icons.add),
                         onPressed: () {
                           setState(() {
-                            item.quantity++; // Увеличиваем количество
+                            item.quantity++;
                           });
                         },
                       ),
