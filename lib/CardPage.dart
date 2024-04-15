@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'modul/DataBase.dart';
+import 'Order.dart';
 
 class CartItem {
   final String name;
   final String price;
   final String image;
+  int quantity; // Добавляем поле для количества товара
 
   CartItem({
     required this.name,
     required this.price,
     required this.image,
+    this.quantity = 1, // Устанавливаем значение по умолчанию
   });
 }
 
@@ -28,7 +31,7 @@ class Cart {
     double totalPrice = 0.0;
     for (var item in items) {
       double itemPrice = getPriceByName(item.name);
-      totalPrice += itemPrice;
+      totalPrice += itemPrice * item.quantity; // Учитываем количество товара
     }
     return totalPrice;
   }
@@ -65,18 +68,47 @@ class _CartScreenState extends State<CartScreen> {
                     fit: BoxFit.cover,
                   ),
                   title: Text(item.name),
-                  subtitle: Text(item.price),
-                  trailing: IconButton(
-                    icon: Icon(Icons.remove_shopping_cart),
-                    onPressed: () {
-                      setState(() {
-                        widget.cart.removeItem(index);
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Товар удален из корзины'),
-                        duration: Duration(seconds: 1),
-                      ));
-                    },
+                  subtitle: Row(
+                    children: [
+                      Text(item.price),
+                      SizedBox(width: 20), // Добавляем отступ
+                      Text('Количество: ${item.quantity}'),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          setState(() {
+                            if (item.quantity > 1) {
+                              item.quantity--; // Уменьшаем количество
+                            }
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          setState(() {
+                            item.quantity++; // Увеличиваем количество
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.remove_shopping_cart),
+                        onPressed: () {
+                          setState(() {
+                            widget.cart.removeItem(index);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Товар удален из корзины'),
+                            duration: Duration(seconds: 1),
+                          ));
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
@@ -88,12 +120,15 @@ class _CartScreenState extends State<CartScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Общая стоимость: ${widget.cart.getTotalPrice()}',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  'Общая стоимость: ${widget.cart.getTotalPrice()} ₽',
+                  style: TextStyle(fontSize: 20),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    // Действие при нажатии на кнопку оформления заказа
+                  onPressed: widget.cart.items.isEmpty ? null : () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrderScreen()),
+                    );
                   },
                   child: Text('Оформить заказ'),
                 ),

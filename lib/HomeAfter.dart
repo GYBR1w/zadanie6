@@ -6,21 +6,22 @@ import 'CardPage.dart';
 import 'LikePage.dart';
 import 'ProfileScreen.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+
+class HomeAfter extends StatefulWidget {
+  const HomeAfter({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
-  late Cart _cart;
-  late List<FavoriteItem> _favoriteItems = [];
+class _HomeState extends State<HomeAfter> {
+  late Cart _cart; // Создаем экземпляр класса корзины
+  late List<FavoriteItem> _favoriteItems = []; // Инициализируем список избранных товаров
 
   @override
   void initState() {
     super.initState();
-    _cart = Cart();
+    _cart = Cart(); // Инициализируем экземпляр класса корзины
   }
 
   @override
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.shopping_cart),
             onPressed: () {
+              // Переход к экрану корзины при нажатии на иконку корзины
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -43,8 +45,9 @@ class _HomeState extends State<Home> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.favorite), // Добавляем иконку сердечка
             onPressed: () {
+              // Переход к экрану избранного при нажатии на иконку сердечка
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -56,12 +59,13 @@ class _HomeState extends State<Home> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.account_circle), // Добавляем иконку личного кабинета
             onPressed: () {
+              // Переход к экрану личного кабинета
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
+                  builder: (context) => MyAccount(),
                 ),
               );
             },
@@ -73,6 +77,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _buildBody() {
+    // Здесь должен быть ваш текущий виджет с товарами или другим содержимым
     return GridView.builder(
       padding: const EdgeInsets.all(8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -132,6 +137,43 @@ class _HomeState extends State<Home> {
                   color: Colors.black,
                   fontSize: 16,
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.favorite_border),
+                    onPressed: () {
+                      // Добавление товара в избранное при нажатии на иконку сердечка
+                      setState(() {
+                        _favoriteItems.add(FavoriteItem(
+                          name: flowersList[index].name,
+                          price: flowersList[index].price,
+                          image: flowersList[index].image,
+                        ));
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Товар добавлен в избранное'),
+                        duration: Duration(seconds: 1),
+                      ));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      // Добавление товара в корзину при нажатии на иконку корзины
+                      _cart.addItem(CartItem(
+                        name: flowersList[index].name,
+                        price: flowersList[index].price,
+                        image: flowersList[index].image,
+                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Товар добавлен в корзину'),
+                        duration: Duration(seconds: 1),
+                      ));
+                    },
+                  ),
+                ],
               ),
             ],
           ),

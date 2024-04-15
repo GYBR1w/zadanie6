@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/MyAccount.dart';
 import 'Home.dart';
 import 'Registration.dart';
 
-
-
 class Authorization extends StatelessWidget {
-  const Authorization ({super.key});
+  const Authorization({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,90 +17,58 @@ class Authorization extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-            children: [
-              const SizedBox(height: 100),
-              Container(
-                width: 400,
-                height: 50,
-                color: Colors.white,
-                child: const Center(
-                  child: TextField(decoration: InputDecoration(
+          children: [
+            const SizedBox(height: 100),
+            Container(
+              width: 400,
+              height: 50,
+              color: Colors.white,
+              child: const Center(
+                child: TextField(
+                  decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Логин",
-                  )
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
-              Container(
-                width: 400,
-                height: 50,
-                color: Colors.white,
-                child: const Center(
-                  child: TextField(decoration: InputDecoration(
+            ),
+            const SizedBox(height: 40),
+            Container(
+              width: 400,
+              height: 50,
+              color: Colors.white,
+              child: const Center(
+                child: TextField(
+                  decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Пароль",
-                  )
                   ),
                 ),
               ),
-              const SizedBox(height: 100),
-              Container(
-                width: 300,
-                height: 70,
-                child: ElevatedButton(
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text('Создать аккаунт',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                          )
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Registration()
-                      ),
-                    );
-                  },
+            ),
+            const SizedBox(height: 100),
+            Container(
+              width: 300,
+              height: 70,
+              child: ElevatedButton(
+                child: const Text(
+                  'Войти',
+                  style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
+                onPressed: () {
+                  // Здесь должна быть логика аутентификации
+                  // Пока просто перенаправляем на экран Home.dart
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyAccount()),
+                  );
+                },
               ),
-              const SizedBox(height: 40),
-              Container(
-                width: 300,
-                height: 70,
-                child: ElevatedButton(
-                  child: const Text(
-                    'Войти',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home()
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 30),
-            ]
+            ),
+            const SizedBox(height: 30),
+          ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-

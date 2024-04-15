@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'Authorization.dart';
+import 'package:untitled4/Home.dart';
+
 
 void main() {
   runApp(const MyApp());
 }
 
-
-//Запук приложения
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor:const  Color.fromARGB(255, 255, 255, 255)),
         useMaterial3: true,
       ),
-      home: const Authorization(),
+      home: const Home(),
     );
   }
 }
